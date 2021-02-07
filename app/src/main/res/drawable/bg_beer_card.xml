@@ -5,8 +5,8 @@
       android:color="@color/black" />
   <solid android:color="@color/teal_700" />
   <corners
-      android:bottomLeftRadius="16dp"
-      android:bottomRightRadius="16dp"
-      android:topLeftRadius="16dp"
-      android:topRightRadius="16dp" />
+      android:bottomLeftRadius="@dimen/beer_card_corner"
+      android:bottomRightRadius="@dimen/beer_card_corner"
+      android:topLeftRadius="@dimen/beer_card_corner"
+      android:topRightRadius="@dimen/beer_card_corner" />
 </shape>

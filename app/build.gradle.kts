@@ -70,5 +70,9 @@ dependencies {
     implementation(Libs.retrofitGsonConverter)
     implementation(Libs.okHttpLoggingInterceptor)
 
+    implementation(Libs.glide)
+    kapt(Libs.glideCompiler)
+    implementation(Libs.glideTransformations)
+
 }
 

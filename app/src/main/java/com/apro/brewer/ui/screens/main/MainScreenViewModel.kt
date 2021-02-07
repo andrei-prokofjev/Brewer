@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.apro.brewer.navigation.AppRouter
 import com.apro.brewer.ui.screens.main.business.MainInteractor
+import com.apro.brewer.ui.screens.main.item.BeerListItem
 import com.apro.core.ui.BaseViewModel
 import com.apro.core.ui.adapter.ListItem
 import kotlinx.coroutines.Dispatchers
@@ -35,5 +36,9 @@ class MainScreenViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             mainInteractor.loadMoreBeers()
         }
+    }
+
+    fun beerClicked(it: BeerListItem) {
+
     }
 }

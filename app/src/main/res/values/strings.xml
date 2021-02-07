@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Brewer</string>
+    <string name="abv_x">Abv: %s %%</string>
+    <string name="ebc_x">Ebc: %s</string>
+    <string name="ibu_x">Ibu: %s</string>
 </resources>
