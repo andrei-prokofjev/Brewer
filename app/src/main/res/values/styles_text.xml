@@ -1,0 +1,22 @@
+<resources>
+
+    <style name="TextAppearance.BeerCard" parent="android:TextAppearance">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+
+    <style name="TextAppearance.BeerCard.Title" parent="TextAppearance.BeerCard">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+
+    <style name="TextAppearance.BeerCard.Description" parent="TextAppearance.BeerCard">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+
+</resources>
