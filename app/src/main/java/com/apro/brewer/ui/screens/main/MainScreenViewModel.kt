@@ -3,9 +3,10 @@ package com.apro.brewer.ui.screens.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.apro.brewer.models.BeerDataModel
 import com.apro.brewer.navigation.AppRouter
+import com.apro.brewer.ui.screens.Screens
 import com.apro.brewer.ui.screens.main.business.MainInteractor
-import com.apro.brewer.ui.screens.main.item.BeerListItem
 import com.apro.core.ui.BaseViewModel
 import com.apro.core.ui.adapter.ListItem
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +39,7 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
-    fun beerClicked(it: BeerListItem) {
-
+    fun beerClicked(model: BeerDataModel) {
+        appRouter.navigateTo(Screens.beer(model))
     }
 }

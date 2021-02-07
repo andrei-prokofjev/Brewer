@@ -14,8 +14,6 @@ import com.apro.brewer.ui.screens.main.di.MainScreenComponent
 import com.apro.core.ui.BaseFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import jp.wasabeef.glide.transformations.CropSquareTransformation
-import jp.wasabeef.glide.transformations.MaskTransformation
 
 
 class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
@@ -44,7 +42,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
 
     private val adapter by lazy {
         BeersAdapter(glide) {
-            viewModel.beerClicked(it)
+            viewModel.beerClicked(it.model)
         }
     }
 
@@ -58,8 +56,9 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
         viewModel.beersData.observe {
             adapter.items = it
         }
-    }
 
+        requireActivity().title = getString(R.string.all_beers)
+    }
 
     override fun onBackPressed(): Boolean {
         requireActivity().finish()

@@ -3,7 +3,7 @@ package com.apro.brewer.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.apro.brewer.db.model.BeerModel
+import com.apro.brewer.models.BeerDataModel
 
 @Entity(tableName = "beers")
 data class BeerEntity(
@@ -12,7 +12,7 @@ data class BeerEntity(
 
     ) {
     companion object {
-        fun from(model: BeerModel) = with(model) {
+        fun from(model: BeerDataModel) = with(model) {
             BeerEntity(
                 id = id,
                 name = name

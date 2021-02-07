@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         appComponent.appRouter().newRootScreen(Screens.main())
+
     }
 
     override fun onResume() {

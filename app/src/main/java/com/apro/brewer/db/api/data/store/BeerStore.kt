@@ -1,14 +1,15 @@
 package com.apro.brewer.db.api.data.store
 
-import com.apro.brewer.db.model.BeerModel
+import com.apro.brewer.models.BeerDataModel
+
 
 interface BeerStore {
 
 
-  fun getBeers(): List<BeerModel>
+  //fun getBeers(): List<BeerDataModel>
 
 
-  fun insertBeers(beers: List<BeerModel>)
+  fun insertBeers(beers: List<BeerDataModel>)
 
-  fun insertBeer(beer: BeerModel)
+  fun insertBeer(beer: BeerDataModel)
 }

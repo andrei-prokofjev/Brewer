@@ -18,5 +18,21 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
+    <style name="TextAppearance.BeerView" parent="android:TextAppearance">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="TextAppearance.BeerView.Params" parent="TextAppearance.BeerView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="TextAppearance.BeerView.Description" parent="TextAppearance.BeerView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
 
 </resources>
