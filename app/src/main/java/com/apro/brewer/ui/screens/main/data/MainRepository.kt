@@ -16,8 +16,6 @@ interface MainRepository {
 
     suspend fun loadRandomBeer(): BeerDataModel
 
-    fun sortBy(sortBy: SortBy)
-
     fun reset()
 
     companion object {

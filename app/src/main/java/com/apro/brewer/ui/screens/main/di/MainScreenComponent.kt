@@ -6,6 +6,7 @@ import com.apro.brewer.api.PunkApi
 import com.apro.brewer.di.ViewModelFactory
 import com.apro.brewer.di.ViewModelKey
 import com.apro.brewer.navigation.AppRouter
+import com.apro.brewer.preferences.api.SortPreferences
 import com.apro.brewer.ui.screens.main.MainScreenViewModel
 import com.apro.brewer.ui.screens.main.business.MainInteractor
 import com.apro.brewer.ui.screens.main.business.MainInteractorImpl
@@ -30,6 +31,9 @@ interface MainScreenComponent {
         @BindsInstance
         fun punkApi(api: PunkApi): Builder
 
+        @BindsInstance
+        fun sorPreferences(sortPrefs: SortPreferences): Builder
+
 
         fun build(): MainScreenComponent
     }
@@ -39,7 +43,7 @@ interface MainScreenComponent {
             DaggerMainScreenComponent.builder()
                 .appRouter(appRouter())
                 .punkApi(punkApi())
-//                .mainRepository(mainRepository())
+                .sorPreferences(sortPreferences())
                 .build()
         }
     }

@@ -6,7 +6,8 @@ import com.apro.brewer.api.di.ApiModule
 import com.apro.brewer.api.di.NetworkModule
 import com.apro.brewer.navigation.AppRouter
 import com.apro.brewer.navigation.di.NavigationModule
-import com.apro.brewer.ui.screens.main.data.MainRepository
+import com.apro.core.preferenes.di.PreferencesApi
+import com.apro.core.preferenes.di.PreferencesModule
 import com.github.terrakok.cicerone.NavigatorHolder
 import dagger.Component
 import dagger.Module
@@ -18,28 +19,20 @@ import javax.inject.Singleton
         NavigationModule::class,
         NetworkModule::class,
         ApiModule::class,
-//  PreferencesModule::class
+        PreferencesModule::class
     ]
 )
 @Singleton
-interface AppComponent : ApiComponent/*, PreferencesApi */ {
-
-
-//  fun resources(): ResourceProvider
+interface AppComponent : ApiComponent, PreferencesApi {
 
     fun appRouter(): AppRouter
 
-//    fun mainRepository(): MainRepository
-
-    //
     fun navigatorHolder(): NavigatorHolder
 
     companion object {
         fun create(app: Application): AppComponent =
             DaggerAppComponent.builder()
-                .appModule(AppModule(app))
-
-                //  .preferencesModule(PreferencesModule(app))
+                .preferencesModule(PreferencesModule(app))
                 .build()
     }
 }
@@ -47,21 +40,11 @@ interface AppComponent : ApiComponent/*, PreferencesApi */ {
 @Module
 class AppModule(private val app: Application) {
 
-//  @Provides
-//  @Singleton
-//  fun provideMapboxInteractor(): MapboxInteractor = MapboxInteractorImpl()
 //
 //  @Provides
 //  @Singleton
 //  fun resourceProvider(): ResourceProvider = AndroidResourceProvider(app)
-//
-//  @Provides
-//  @Singleton
-//  fun eventBusProvider(): EventBus = EventBus
-//
-//  @Provides
-//  @Singleton
-//  fun provideVoiceGuidance(): VoiceGuidance = VoiceGuidanceImpl(app)
+
 
 }
 

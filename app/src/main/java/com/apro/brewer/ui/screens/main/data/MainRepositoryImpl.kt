@@ -2,6 +2,7 @@ package com.apro.brewer.ui.screens.main.data
 
 import com.apro.brewer.api.PunkApi
 import com.apro.brewer.models.BeerDataModel
+import com.apro.brewer.preferences.api.SortPreferences
 import com.apro.brewer.ui.screens.main.PaginationState
 import com.apro.brewer.ui.screens.main.data.MainRepository.Companion.BEERS_PER_PAGE
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -10,13 +11,15 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
-    private val punkApi: PunkApi
+    private val punkApi: PunkApi,
+    private val sortPreferences: SortPreferences
 ) : MainRepository {
 
     private val _state = MutableStateFlow<PaginationState<BeerDataModel>>(PaginationState())
@@ -35,6 +38,24 @@ class MainRepositoryImpl @Inject constructor(
     override fun init() {
         reset()
         scope = CoroutineScope(CoroutineExceptionHandler { _, e -> Timber.e(e) })
+
+        scope?.launch {
+            sortPreferences.state.collect {
+                comparator = when (it) {
+                    SortPreferences.SortBy.ABV -> comparatorByAbv
+                    SortPreferences.SortBy.EBC -> comparatorByEbc
+                    SortPreferences.SortBy.IBU -> comparatorByIbu
+                }
+
+                val paginationState =
+                    PaginationState(
+                        _state.value.dataList
+                            .sortedWith(comparator),
+                        allLoadedEnd = _state.value.allLoadedEnd
+                    )
+                _state.emit(paginationState)
+            }
+        }
     }
 
     override suspend fun loadBeers(): Flow<PaginationState<BeerDataModel>> {
@@ -78,25 +99,6 @@ class MainRepositoryImpl @Inject constructor(
 
     private val comparatorByEbc = Comparator { b1: BeerDataModel, b2: BeerDataModel ->
         b2.ebc.compareTo(b1.ebc)
-    }
-
-    override fun sortBy(sortBy: SortBy) {
-        comparator = when (sortBy) {
-            SortBy.ABV -> comparatorByAbv
-            SortBy.EBC -> comparatorByEbc
-            SortBy.IBU -> comparatorByIbu
-            else -> defaultComparator
-        }
-
-        val paginationState =
-            PaginationState(
-                _state.value.dataList
-                    .sortedWith(comparator),
-                allLoadedEnd = _state.value.allLoadedEnd
-            )
-        scope?.launch {
-            _state.emit(paginationState)
-        }
     }
 
     override fun reset() {

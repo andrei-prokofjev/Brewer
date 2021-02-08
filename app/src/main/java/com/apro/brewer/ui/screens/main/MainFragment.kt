@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apro.brewer.R
 import com.apro.brewer.databinding.FragmentMainBinding
+import com.apro.brewer.preferences.api.SortPreferences
 import com.apro.brewer.ui.MainActivity
 import com.apro.brewer.ui.common.BackButtonListener
 import com.apro.brewer.ui.common.viewBinding
-import com.apro.brewer.ui.screens.main.data.SortBy
 import com.apro.brewer.ui.screens.main.di.MainScreenComponent
 import com.apro.core.ui.BaseFragment
 import com.bumptech.glide.Glide
@@ -84,17 +84,17 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
             }
 
             R.id.action_sort_by_abv -> {
-                viewModel.sortBy(SortBy.ABV)
+                viewModel.sortBy(SortPreferences.SortBy.ABV)
                 return true
             }
 
             R.id.action_sort_by_ebc -> {
-                viewModel.sortBy(SortBy.EBC)
+                viewModel.sortBy(SortPreferences.SortBy.EBC)
                 return true
             }
 
             R.id.action_sort_by_ibu -> {
-                viewModel.sortBy(SortBy.IBU)
+                viewModel.sortBy(SortPreferences.SortBy.IBU)
                 return true
             }
             else -> super.onOptionsItemSelected(item)

@@ -41,7 +41,7 @@ class BeerCardDelegate(
                     )
                 }
                 with(listItem.model) {
-                    titleTextView.text = id.toString()
+                    titleTextView.text = name
                     tagTextView.text = tag
 
                     abvTextView.text =

@@ -1,7 +1,6 @@
 package com.apro.brewer.ui.screens.main.business
 
 import com.apro.brewer.ui.screens.main.data.MainRepository
-import com.apro.brewer.ui.screens.main.data.SortBy
 import com.apro.brewer.ui.screens.main.item.BeerListItem
 import com.apro.core.ui.adapter.ListItem
 import kotlinx.coroutines.CoroutineScope
@@ -40,10 +39,6 @@ class MainInteractorImpl @Inject constructor(
 
     override fun setBeerFavorite(id: Long, favorite: Boolean) {
 
-    }
-
-    override fun sortBy(sortBy: SortBy) {
-        mainRepository.sortBy(sortBy)
     }
 
     override fun reset() {
