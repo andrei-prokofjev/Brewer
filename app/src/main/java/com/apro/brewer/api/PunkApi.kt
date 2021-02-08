@@ -10,8 +10,4 @@ class PunkApi(private val controller: PunkController) {
 
     suspend fun getBeers(page: Int, limit: Int) = controller.getBeers(page, limit).map { it.model() }
 
-//  suspend fun getWeatherByLocation(location: CoordModel) = controller.weatherByLocation(location.latitude, location.longitude).model()
-//
-//  suspend fun getWeatherByCity(city: String) = controller.weatherByCity(city).model()
-
 }

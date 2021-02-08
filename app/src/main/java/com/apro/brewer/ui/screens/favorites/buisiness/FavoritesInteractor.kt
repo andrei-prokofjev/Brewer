@@ -6,6 +6,4 @@ import kotlinx.coroutines.flow.Flow
 interface FavoritesInteractor {
 
     suspend fun loadFavoritesBeers(): Flow<List<ListItem>>
-
-    suspend fun setBeerFavorite(id: Long, isFavorite: Boolean)
 }

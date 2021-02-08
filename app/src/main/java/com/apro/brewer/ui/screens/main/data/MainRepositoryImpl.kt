@@ -62,7 +62,14 @@ class MainRepositoryImpl @Inject constructor(
     override suspend fun loadBeers(): Flow<PaginationState<BeerDataModel>> {
         busy.set(true)
         try {
-            val data = punkApi.getBeers(1, BEERS_PER_PAGE).sortedWith(comparator)
+            val data = punkApi.getBeers(1, BEERS_PER_PAGE).sortedWith(comparator).toMutableList()
+            val favorites = DI.databaseApi.beerStore().getFavorites().map { it.id }
+
+            data.replaceAll { e ->
+                if (favorites.contains(e.id))
+                    e.copy(isFavorite = true) else e
+            }
+
             _state.emit(PaginationState(data, allLoadedEnd = data.size < BEERS_PER_PAGE))
             DI.databaseApi.beerStore().insertBeers(data)
             busy.set(false)
@@ -80,6 +87,12 @@ class MainRepositoryImpl @Inject constructor(
             try {
                 val data =
                     punkApi.getBeers(_state.value.itemCount() / BEERS_PER_PAGE + 1, BEERS_PER_PAGE)
+                        .toMutableList()
+                val favorites = DI.databaseApi.beerStore().getFavorites().map { it.id }
+                data.replaceAll { e ->
+                    if (favorites.contains(e.id))
+                        e.copy(isFavorite = true) else e
+                }
 
                 val paginationState =
                     PaginationState(

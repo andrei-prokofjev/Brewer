@@ -9,6 +9,8 @@ import com.apro.brewer.ui.screens.favorites.buisiness.FavoritesInteractor
 import com.apro.brewer.ui.screens.favorites.buisiness.FavoritesInteractorImpl
 import com.apro.brewer.ui.screens.favorites.data.FavoritesRepository
 import com.apro.brewer.ui.screens.favorites.data.FavoritesRepositoryImpl
+import com.apro.brewer.ui.screens.main.data.MainRepository
+import com.apro.brewer.ui.screens.main.data.MainRepositoryImpl
 import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
@@ -49,4 +51,7 @@ abstract class FavoritesScreenModule {
 
     @Binds
     abstract fun favoriteInteractor(repository: FavoritesInteractorImpl): FavoritesInteractor
+
+    @Binds
+    abstract fun mainRepository(repository: MainRepositoryImpl): MainRepository
 }

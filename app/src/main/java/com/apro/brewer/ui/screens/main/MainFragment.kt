@@ -48,7 +48,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
     }
 
     private val adapter by lazy {
-        BeersListAdapter(glide, {
+        BeersListAdapter(true, glide, {
             viewModel.onBeerClicked(it.model)
         }, { id, isFavorites ->
             viewModel.setBeerFavorite(id, isFavorites)

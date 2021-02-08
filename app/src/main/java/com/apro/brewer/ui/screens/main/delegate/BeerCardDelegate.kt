@@ -12,13 +12,12 @@ import com.bumptech.glide.RequestManager
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
 class BeerCardDelegate(
+    private val isFavoritesEnabled: Boolean,
     private val glide: RequestManager,
     private val onItemClick: (BeerListItem) -> Unit,
-    private val onFavoriteChecked: (Long, Boolean) -> Unit
+    private val onFavoriteChecked: (Long, Boolean) -> Unit = { _, _ -> }
 
-) :
-    AbsListItemAdapterDelegate<BeerListItem, ListItem, BeerCardDelegate.VH>() {
-
+) : AbsListItemAdapterDelegate<BeerListItem, ListItem, BeerCardDelegate.VH>() {
 
     override fun isForViewType(item: ListItem, items: MutableList<ListItem>, position: Int) =
         item is BeerListItem
@@ -52,6 +51,7 @@ class BeerCardDelegate(
                         ibuTextView.resources.getString(R.string.ibu_x, ibu.toString())
 
                     favoriteCheckBox.isChecked = isFavorite
+                    favoriteCheckBox.isEnabled = isFavoritesEnabled
 
                     glide.load(imageUrl).into(imageView)
                 }

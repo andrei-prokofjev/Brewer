@@ -29,6 +29,7 @@ class MainScreenViewModel @Inject constructor(
         mainInteractor.init()
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             mainInteractor.loadBeers().collect {
+                println(">>> post")
                 _beersData.postValue(it)
             }
         }

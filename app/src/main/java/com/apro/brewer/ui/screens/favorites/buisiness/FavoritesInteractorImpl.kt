@@ -16,9 +16,5 @@ class FavoritesInteractorImpl @Inject constructor(
         return favoritesRepository.loadFavoritesBeers().map { it.dataList.map { BeerListItem(it) } }
     }
 
-    override suspend fun setBeerFavorite(id: Long, isFavorite: Boolean) {
-        favoritesRepository.setBeerFavorite(id, isFavorite)
-    }
-
 
 }

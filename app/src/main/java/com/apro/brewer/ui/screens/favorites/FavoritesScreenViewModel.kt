@@ -34,10 +34,4 @@ class FavoritesScreenViewModel @Inject constructor(
     fun onBeerClicked(model: BeerDataModel) {
         appRouter.navigateTo(Screens.beer(model))
     }
-
-    fun setBeerFavorite(id: Long, isFavorite: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            favoritesInteractor.setBeerFavorite(id, isFavorite)
-        }
-    }
 }

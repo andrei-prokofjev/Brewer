@@ -19,10 +19,4 @@ class FavoritesRepositoryImpl @Inject constructor(
 
         return _state.asStateFlow()
     }
-
-    override suspend fun setBeerFavorite(id: Long, favorite: Boolean) {
-        DI.databaseApi.beerStore().updateFavorite(id, favorite)
-        val data = DI.databaseApi.beerStore().getFavorites()
-        _state.emit(PaginationState(data, true))
-    }
 }

@@ -15,10 +15,10 @@ interface BeerDao {
     @Query("SELECT * FROM beers WHERE isFavorite = 1")
     fun getFavorites(): List<BeerEntity>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(beers: List<BeerEntity>)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(beer: BeerEntity)
 
     @Query("UPDATE beers SET isFavorite = :isFavorites WHERE id = :id")
