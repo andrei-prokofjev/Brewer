@@ -1,9 +1,6 @@
 package com.apro.brewer.db.api.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.apro.brewer.db.entity.BeerEntity
 
 @Dao
@@ -13,8 +10,11 @@ interface BeerDao {
   fun getAll(): List<BeerEntity>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun insertAll(points: List<BeerEntity>)
+  fun insertAll(beers: List<BeerEntity>)
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun insert(point: BeerEntity)
+  fun insert(beer: BeerEntity)
+
+  @Update(onConflict = OnConflictStrategy.REPLACE)
+  fun update(beer: BeerEntity)
 }

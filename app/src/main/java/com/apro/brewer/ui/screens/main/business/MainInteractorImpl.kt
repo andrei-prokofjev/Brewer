@@ -37,6 +37,10 @@ class MainInteractorImpl @Inject constructor(
 
     override suspend fun loadRandomBeer() = BeerListItem(mainRepository.loadRandomBeer())
 
+    override fun setBeerFavorite(id: Long, favorite: Boolean) {
+        TODO("Not yet implemented")
+    }
+
     override fun reset() {
         scope?.cancel()
     }

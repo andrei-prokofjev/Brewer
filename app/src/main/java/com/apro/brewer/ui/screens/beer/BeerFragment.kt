@@ -5,13 +5,13 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.apro.brewer.R
 import com.apro.brewer.databinding.FragmentBeerBinding
-import com.apro.brewer.ui.common.BackButtonListener
+import com.apro.brewer.ui.MainActivity
 import com.apro.brewer.ui.common.viewBinding
 import com.apro.core.ui.BaseFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class BeerFragment : BaseFragment(R.layout.fragment_beer), BackButtonListener {
+class BeerFragment : BaseFragment(R.layout.fragment_beer) {
 
     private lateinit var component: BeerScreenComponent
     private val binding by viewBinding { FragmentBeerBinding.bind(it) }
@@ -29,7 +29,7 @@ class BeerFragment : BaseFragment(R.layout.fragment_beer), BackButtonListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        setHasOptionsMenu(true)
         val model = component.beerModel()
         requireActivity().title = model.name
         with(binding) {
@@ -52,20 +52,16 @@ class BeerFragment : BaseFragment(R.layout.fragment_beer), BackButtonListener {
             fgTextView.text =
                 sinceTextView.resources.getString(R.string.target_fg_x, model.target_fg.toString())
 
+            brewerTipsTextView.text = model.brewersTips
+            foodPairingTextView.text = model.foodPairing.joinToString(separator = "") { "* $it\n" }
 
-
-
-
+            contributedByTextView.text = model.contributedBy
             glide.load(model.imageUrl).into(imageView)
         }
 
-
+        (requireActivity() as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-
-    override fun onBackPressed(): Boolean {
-        return true
-    }
 
     companion object {
         fun create(component: BeerScreenComponent) = BeerFragment().apply {

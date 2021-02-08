@@ -34,5 +34,11 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
+    <style name="TextAppearance.BeerView.ContributedBy" parent="TextAppearance.BeerView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:fontFamily">@font/roboto_light</item>
+    </style>
+
 
 </resources>

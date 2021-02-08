@@ -2,12 +2,16 @@ package com.apro.brewer.ui.screens.main
 
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apro.brewer.R
 import com.apro.brewer.databinding.FragmentMainBinding
+import com.apro.brewer.ui.MainActivity
 import com.apro.brewer.ui.common.BackButtonListener
 import com.apro.brewer.ui.common.viewBinding
 import com.apro.brewer.ui.screens.main.di.MainScreenComponent
@@ -41,9 +45,11 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
     }
 
     private val adapter by lazy {
-        BeersAdapter(glide) {
+        BeersListAdapter(glide, {
             viewModel.beerClicked(it.model)
-        }
+        }, { id, isFavorites ->
+            viewModel.setBeerFavorite(id, isFavorites)
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +64,24 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
         }
 
         requireActivity().title = getString(R.string.all_beers)
+
+        setHasOptionsMenu(true)
+        (requireActivity() as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_favorites -> {
+                viewModel.onFavoritesClicked()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onBackPressed(): Boolean {

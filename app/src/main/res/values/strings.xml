@@ -7,6 +7,7 @@
     <string name="since_x">Since: %s</string>
     <string name="ph_x">Ph: %s</string>
     <string name="srm_x">Srm: %s</string>
-    <string name="target_og_x">Target OG: %s</string>
-    <string name="target_fg_x">Target FG: %s</string>
+    <string name="target_og_x">OG: %s</string>
+    <string name="target_fg_x">FG: %s</string>
+    <string name="favorites">Favorites</string>
 </resources>

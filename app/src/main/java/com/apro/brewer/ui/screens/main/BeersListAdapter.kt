@@ -6,14 +6,15 @@ import com.apro.core.ui.adapter.SimpleDiffAdapter
 import com.bumptech.glide.RequestManager
 
 
-class BeersAdapter(
+class BeersListAdapter(
     glide: RequestManager,
-    private val onItemClick: (BeerListItem) -> Unit
+    private val onItemClick: (BeerListItem) -> Unit,
+    private val onFavoriteChecked: (Long, Boolean) -> Unit
 ) : SimpleDiffAdapter() {
 
     init {
         delegatesManager.apply {
-            addDelegate(BeerCardDelegate(glide, onItemClick))
+            addDelegate(BeerCardDelegate(glide, onItemClick, onFavoriteChecked))
         }
     }
 

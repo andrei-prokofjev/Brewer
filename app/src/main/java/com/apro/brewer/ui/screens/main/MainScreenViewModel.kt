@@ -29,7 +29,6 @@ class MainScreenViewModel @Inject constructor(
             mainInteractor.loadBeers().collect {
                 _beersData.postValue(it)
             }
-
         }
     }
 
@@ -41,5 +40,17 @@ class MainScreenViewModel @Inject constructor(
 
     fun beerClicked(model: BeerDataModel) {
         appRouter.navigateTo(Screens.beer(model))
+    }
+
+    fun setBeerFavorite(id: Long, favorite: Boolean) {
+        mainInteractor.setBeerFavorite(id, favorite)
+    }
+
+    override fun onCleared() {
+        mainInteractor.reset()
+    }
+
+    fun onFavoritesClicked() {
+        appRouter.navigateTo(Screens.favorites())
     }
 }

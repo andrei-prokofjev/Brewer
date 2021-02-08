@@ -11,7 +11,12 @@ import com.apro.core.ui.onClick
 import com.bumptech.glide.RequestManager
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
-class BeerCardDelegate(private val glide: RequestManager, val onItemClick: (BeerListItem) -> Unit) :
+class BeerCardDelegate(
+    private val glide: RequestManager,
+    private val onItemClick: (BeerListItem) -> Unit,
+    private val onFavoriteChecked: (Long, Boolean) -> Unit
+
+) :
     AbsListItemAdapterDelegate<BeerListItem, ListItem, BeerCardDelegate.VH>() {
 
 
@@ -29,6 +34,12 @@ class BeerCardDelegate(private val glide: RequestManager, val onItemClick: (Beer
         fun bind(listItem: BeerListItem) {
             with(binding) {
                 root.onClick { onItemClick.invoke(listItem) }
+                favoriteCheckBox.setOnCheckedChangeListener { _, isChecked ->
+                    onFavoriteChecked.invoke(
+                        listItem.model.id,
+                        isChecked
+                    )
+                }
                 with(listItem.model) {
                     titleTextView.text = name
                     tagTextView.text = tag
@@ -39,6 +50,8 @@ class BeerCardDelegate(private val glide: RequestManager, val onItemClick: (Beer
                         ebcTextView.resources.getString(R.string.ebc_x, ebc.toString())
                     ibuTextView.text =
                         ibuTextView.resources.getString(R.string.ibu_x, ibu.toString())
+
+                    favoriteCheckBox.isChecked = isFavorite
 
                     glide.load(imageUrl).into(imageView)
                 }

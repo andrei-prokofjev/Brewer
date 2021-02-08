@@ -3,6 +3,7 @@ package com.apro.brewer.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.apro.brewer.DI.appComponent
 import com.apro.brewer.R
@@ -28,6 +29,17 @@ class MainActivity : AppCompatActivity() {
 
         appComponent.appRouter().newRootScreen(Screens.main())
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {

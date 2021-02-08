@@ -24,7 +24,8 @@ data class BeerDataModel(
     val ingredients: IngredientsDto,
     val foodPairing: List<String>,
     val brewersTips: String,
-    val contributedBy: String
+    val contributedBy: String,
+    var isFavorite: Boolean = false
 )
 
 data class VolumeData(

@@ -5,9 +5,7 @@ import com.apro.brewer.models.BeerDataModel
 
 interface BeerStore {
 
-
-  //fun getBeers(): List<BeerDataModel>
-
+//  fun getBeers(): List<BeerDataModel>
 
   fun insertBeers(beers: List<BeerDataModel>)
 
