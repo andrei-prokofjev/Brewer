@@ -1,6 +1,7 @@
 package com.apro.brewer.ui.screens.main.business
 
 import com.apro.brewer.ui.screens.main.data.MainRepository
+import com.apro.brewer.ui.screens.main.data.SortBy
 import com.apro.brewer.ui.screens.main.item.BeerListItem
 import com.apro.core.ui.adapter.ListItem
 import kotlinx.coroutines.CoroutineScope
@@ -16,11 +17,11 @@ class MainInteractorImpl @Inject constructor(
 
     private var scope: CoroutineScope? = null
 
-    init {
+    override fun init() {
         reset()
         scope = CoroutineScope(Dispatchers.IO)
+        mainRepository.init()
     }
-
 
     override suspend fun loadBeers(): Flow<List<ListItem>> {
         return mainRepository.loadBeers().map {
@@ -38,10 +39,15 @@ class MainInteractorImpl @Inject constructor(
     override suspend fun loadRandomBeer() = BeerListItem(mainRepository.loadRandomBeer())
 
     override fun setBeerFavorite(id: Long, favorite: Boolean) {
-        TODO("Not yet implemented")
+
+    }
+
+    override fun sortBy(sortBy: SortBy) {
+        mainRepository.sortBy(sortBy)
     }
 
     override fun reset() {
         scope?.cancel()
+        mainRepository.reset()
     }
 }

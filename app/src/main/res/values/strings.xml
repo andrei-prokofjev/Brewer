@@ -10,4 +10,7 @@
     <string name="target_og_x">OG: %s</string>
     <string name="target_fg_x">FG: %s</string>
     <string name="favorites">Favorites</string>
+    <string name="sort_by_abv">Sort by ABV</string>
+    <string name="sort_by_ibu">Sort by IBU</string>
+    <string name="sort_by_ebc">Sort by EBC</string>
 </resources>

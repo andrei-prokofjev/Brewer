@@ -7,6 +7,7 @@ import com.apro.brewer.models.BeerDataModel
 import com.apro.brewer.navigation.AppRouter
 import com.apro.brewer.ui.screens.Screens
 import com.apro.brewer.ui.screens.main.business.MainInteractor
+import com.apro.brewer.ui.screens.main.data.SortBy
 import com.apro.core.ui.BaseViewModel
 import com.apro.core.ui.adapter.ListItem
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +26,7 @@ class MainScreenViewModel @Inject constructor(
     val beersData: LiveData<List<ListItem>> = _beersData
 
     init {
+        mainInteractor.init()
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             mainInteractor.loadBeers().collect {
                 _beersData.postValue(it)
@@ -53,4 +55,11 @@ class MainScreenViewModel @Inject constructor(
     fun onFavoritesClicked() {
         appRouter.navigateTo(Screens.favorites())
     }
+
+    fun sortBy(sortBy: SortBy) {
+        println(">>> sorty: " + sortBy)
+        mainInteractor.sortBy(sortBy)
+    }
+
+
 }

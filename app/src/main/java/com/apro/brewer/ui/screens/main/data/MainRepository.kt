@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface MainRepository {
 
+    fun init()
+
     suspend fun loadBeers(): Flow<PaginationState<BeerDataModel>>
 
     suspend fun loadMoreBeers()
@@ -14,7 +16,11 @@ interface MainRepository {
 
     suspend fun loadRandomBeer(): BeerDataModel
 
+    fun sortBy(sortBy: SortBy)
+
+    fun reset()
+
     companion object {
-        const val BEERS_PER_PAGE = 10
+        const val BEERS_PER_PAGE = 20
     }
 }

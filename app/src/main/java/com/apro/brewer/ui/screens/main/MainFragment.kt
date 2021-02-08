@@ -14,6 +14,7 @@ import com.apro.brewer.databinding.FragmentMainBinding
 import com.apro.brewer.ui.MainActivity
 import com.apro.brewer.ui.common.BackButtonListener
 import com.apro.brewer.ui.common.viewBinding
+import com.apro.brewer.ui.screens.main.data.SortBy
 import com.apro.brewer.ui.screens.main.di.MainScreenComponent
 import com.apro.core.ui.BaseFragment
 import com.bumptech.glide.Glide
@@ -38,6 +39,8 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             val layoutManager = recyclerView.layoutManager as LinearLayoutManager? ?: return
+
+            layoutManager.findFirstCompletelyVisibleItemPosition()
             if (layoutManager.findLastCompletelyVisibleItemPosition() == adapter.itemCount - 1) {
                 viewModel.loadMoreBeers()
             }
@@ -80,6 +83,20 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
                 true
             }
 
+            R.id.action_sort_by_abv -> {
+                viewModel.sortBy(SortBy.ABV)
+                return true
+            }
+
+            R.id.action_sort_by_ebc -> {
+                viewModel.sortBy(SortBy.EBC)
+                return true
+            }
+
+            R.id.action_sort_by_ibu -> {
+                viewModel.sortBy(SortBy.IBU)
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -1,13 +1,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Sort by AV" />
+    <item
+        android:id="@+id/action_sort_by_abv"
+        android:title="@string/sort_by_abv" />
 
+    <item
+        android:id="@+id/action_sort_by_ebc"
+        android:title="@string/sort_by_ebc" />
+
+    <item
+        android:id="@+id/action_sort_by_ibu"
+        android:title="@string/sort_by_ibu" />
 
     <item
         android:id="@+id/action_favorites"
         android:icon="@drawable/ic_star"
         android:title="@string/favorites"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="always" />
 
 </menu>
