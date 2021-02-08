@@ -18,6 +18,8 @@ interface MainRepository {
 
     fun reset()
 
+    fun setBeerFavorite(id: Long, favorite: Boolean)
+
     companion object {
         const val BEERS_PER_PAGE = 20
     }

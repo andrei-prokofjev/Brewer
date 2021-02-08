@@ -6,8 +6,8 @@ interface SortPreferences {
 
     var sortBy: SortBy
 
-
     enum class SortBy {
+        ID,
         ABV,
         EBC,
         IBU

@@ -22,7 +22,7 @@ class SortPreferencesImpl @Inject constructor(
 
     override var sortBy: SortPreferences.SortBy
         get() {
-            val value = prefs.getInt(SORT_BY, SortPreferences.SortBy.ABV.ordinal)
+            val value = prefs.getInt(SORT_BY, SortPreferences.SortBy.ID.ordinal)
             return SortPreferences.SortBy.values()[value]
         }
         set(value) {

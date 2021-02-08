@@ -8,21 +8,12 @@
     tools:background="@android:color/transparent"
     tools:context=".ui.MainActivity">
 
-  <FrameLayout
-      android:id="@+id/mainLayout"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/textView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoritesRecycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="favorites" />
-  </FrameLayout>
-
-
-
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_beer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

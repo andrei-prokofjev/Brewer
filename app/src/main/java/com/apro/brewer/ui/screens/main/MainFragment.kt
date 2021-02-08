@@ -49,7 +49,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
 
     private val adapter by lazy {
         BeersListAdapter(glide, {
-            viewModel.beerClicked(it.model)
+            viewModel.onBeerClicked(it.model)
         }, { id, isFavorites ->
             viewModel.setBeerFavorite(id, isFavorites)
         })
@@ -58,9 +58,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding) {
-            beersRecycleView.adapter = adapter
-        }
+        binding.beersRecycleView.adapter = adapter
 
         viewModel.beersData.observe {
             adapter.items = it

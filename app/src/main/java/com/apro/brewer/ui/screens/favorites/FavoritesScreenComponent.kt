@@ -5,12 +5,15 @@ import com.apro.brewer.DI
 import com.apro.brewer.di.ViewModelFactory
 import com.apro.brewer.di.ViewModelKey
 import com.apro.brewer.navigation.AppRouter
+import com.apro.brewer.ui.screens.favorites.buisiness.FavoritesInteractor
+import com.apro.brewer.ui.screens.favorites.buisiness.FavoritesInteractorImpl
+import com.apro.brewer.ui.screens.favorites.data.FavoritesRepository
+import com.apro.brewer.ui.screens.favorites.data.FavoritesRepositoryImpl
 import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.multibindings.IntoMap
-
 
 @Component(modules = [FavoritesScreenModule::class])
 interface FavoritesScreenComponent {
@@ -29,7 +32,6 @@ interface FavoritesScreenComponent {
         fun create() = with(DI.appComponent) {
             DaggerFavoritesScreenComponent.builder()
                 .appRouter(appRouter())
-
                 .build()
         }
     }
@@ -41,4 +43,10 @@ abstract class FavoritesScreenModule {
     @IntoMap
     @ViewModelKey(FavoritesScreenViewModel::class)
     abstract fun favoritesScreenModel(viewModel: FavoritesScreenViewModel): ViewModel
+
+    @Binds
+    abstract fun favoriteRepository(repository: FavoritesRepositoryImpl): FavoritesRepository
+
+    @Binds
+    abstract fun favoriteInteractor(repository: FavoritesInteractorImpl): FavoritesInteractor
 }

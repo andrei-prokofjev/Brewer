@@ -14,7 +14,7 @@ interface MainInteractor {
 
     suspend fun loadRandomBeer(): ListItem
 
-    fun setBeerFavorite(id: Long, favorite: Boolean)
+    suspend fun setBeerFavorite(id: Long, favorite: Boolean)
 
     fun reset()
 }

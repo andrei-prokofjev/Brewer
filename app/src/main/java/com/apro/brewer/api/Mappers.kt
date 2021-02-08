@@ -25,7 +25,8 @@ fun PunkResponseDto.model() = BeerDataModel(
   ingredients = ingredients,
   foodPairing = foodPairing,
   brewersTips = brewersTips,
-  contributedBy = contributedBy
+  contributedBy = contributedBy,
+  isFavorite = isFavorite,
 )
 
 

@@ -37,8 +37,8 @@ class MainInteractorImpl @Inject constructor(
 
     override suspend fun loadRandomBeer() = BeerListItem(mainRepository.loadRandomBeer())
 
-    override fun setBeerFavorite(id: Long, favorite: Boolean) {
-
+    override suspend fun setBeerFavorite(id: Long, favorite: Boolean) {
+        mainRepository.setBeerFavorite(id, favorite)
     }
 
     override fun reset() {

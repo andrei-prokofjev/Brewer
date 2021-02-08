@@ -9,18 +9,18 @@ import javax.inject.Singleton
 @Singleton
 interface DatabaseComponent : DatabaseApi {
 
-  companion object {
-    private var databaseComponent: DatabaseComponent? = null
+    companion object {
+        private var databaseComponent: DatabaseComponent? = null
 
-    fun create(context: Context): DatabaseApi {
-      if (databaseComponent == null) {
-        databaseComponent = DaggerDatabaseComponent.builder()
-          .databaseModule(DatabaseModule(context))
-          .build()
-      }
-      return requireNotNull(databaseComponent)
+        fun create(context: Context): DatabaseApi {
+            if (databaseComponent == null) {
+                databaseComponent = DaggerDatabaseComponent.builder()
+                    .databaseModule(DatabaseModule(context))
+                    .build()
+            }
+            return requireNotNull(databaseComponent)
+        }
+
+        fun get(): DatabaseApi = requireNotNull(databaseComponent)
     }
-
-    fun get(): DatabaseApi = requireNotNull(databaseComponent)
-  }
 }

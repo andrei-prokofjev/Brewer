@@ -20,7 +20,6 @@ class MainScreenViewModel @Inject constructor(
     private val mainInteractor: MainInteractor,
     private val sortPreferences: SortPreferences
 
-
 ) : BaseViewModel() {
 
     private val _beersData = MutableLiveData<List<ListItem>>(emptyList())
@@ -36,17 +35,19 @@ class MainScreenViewModel @Inject constructor(
     }
 
     fun loadMoreBeers() {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(Dispatchers.IO) {
             mainInteractor.loadMoreBeers()
         }
     }
 
-    fun beerClicked(model: BeerDataModel) {
+    fun onBeerClicked(model: BeerDataModel) {
         appRouter.navigateTo(Screens.beer(model))
     }
 
     fun setBeerFavorite(id: Long, favorite: Boolean) {
-        mainInteractor.setBeerFavorite(id, favorite)
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+            mainInteractor.setBeerFavorite(id, favorite)
+        }
     }
 
     override fun onCleared() {
@@ -60,5 +61,4 @@ class MainScreenViewModel @Inject constructor(
     fun sortBy(sortBy: SortPreferences.SortBy) {
         sortPreferences.sortBy = sortBy
     }
-
 }

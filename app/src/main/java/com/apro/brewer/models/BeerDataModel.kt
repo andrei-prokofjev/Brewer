@@ -18,14 +18,14 @@ data class BeerDataModel(
     val srm: Float,
     val ph: Float,
     val attenuationLevel: Float,
-    val volume: VolumeData,
-    val boilVolume: VolumeData,
-    val method: MethodDto,
-    val ingredients: IngredientsDto,
-    val foodPairing: List<String>,
+    val volume: VolumeData? = null,
+    val boilVolume: VolumeData? = null,
+    val method: MethodDto? = null,
+    val ingredients: IngredientsDto? = null,
+    val foodPairing: List<String> = emptyList(),
     val brewersTips: String,
     val contributedBy: String,
-    var isFavorite: Boolean = false
+    val isFavorite: Boolean
 )
 
 data class VolumeData(

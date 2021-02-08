@@ -1,5 +1,6 @@
 package com.apro.brewer.ui.screens.main.data
 
+import com.apro.brewer.DI
 import com.apro.brewer.api.PunkApi
 import com.apro.brewer.models.BeerDataModel
 import com.apro.brewer.preferences.api.SortPreferences
@@ -30,7 +31,6 @@ class MainRepositoryImpl @Inject constructor(
         b1.id.compareTo(b2.id)
     }
 
-
     private var comparator = defaultComparator
 
     private var scope: CoroutineScope? = null
@@ -45,6 +45,7 @@ class MainRepositoryImpl @Inject constructor(
                     SortPreferences.SortBy.ABV -> comparatorByAbv
                     SortPreferences.SortBy.EBC -> comparatorByEbc
                     SortPreferences.SortBy.IBU -> comparatorByIbu
+                    else -> defaultComparator
                 }
 
                 val paginationState =
@@ -60,28 +61,45 @@ class MainRepositoryImpl @Inject constructor(
 
     override suspend fun loadBeers(): Flow<PaginationState<BeerDataModel>> {
         busy.set(true)
-        val data = punkApi.getBeers(1, BEERS_PER_PAGE).sortedWith(comparator)
-        val paginationState = PaginationState(data, allLoadedEnd = data.size < BEERS_PER_PAGE)
-        _state.emit(paginationState)
-        busy.set(false)
+        try {
+            val data = punkApi.getBeers(1, BEERS_PER_PAGE).sortedWith(comparator)
+            _state.emit(PaginationState(data, allLoadedEnd = data.size < BEERS_PER_PAGE))
+            DI.databaseApi.beerStore().insertBeers(data)
+            busy.set(false)
+        } catch (e: Exception) {
+            _state.emit(PaginationState(DI.databaseApi.beerStore().getBeers(), allLoadedEnd = true))
+        } finally {
+            busy.set(false)
+        }
+
         return _state.asStateFlow()
     }
 
     override suspend fun loadMoreBeers() {
         if (busy.compareAndSet(false, true) && !_state.value.allLoadedEnd) {
-            val data =
-                punkApi.getBeers(_state.value.itemCount() / BEERS_PER_PAGE + 1, BEERS_PER_PAGE)
+            try {
+                val data =
+                    punkApi.getBeers(_state.value.itemCount() / BEERS_PER_PAGE + 1, BEERS_PER_PAGE)
 
-            val paginationState =
-                PaginationState(
-                    _state.value.dataList.toMutableList().apply { addAll(data) }
-                        .sortedWith(comparator)
-                        .distinctBy { it.id },
-                    allLoadedEnd = data.size < BEERS_PER_PAGE
+                val paginationState =
+                    PaginationState(
+                        _state.value.dataList.toMutableList().apply { addAll(data) }
+                            .sortedWith(comparator)
+                            .distinctBy { it.id },
+                        allLoadedEnd = data.size < BEERS_PER_PAGE
+                    )
+                _state.emit(paginationState)
+                DI.databaseApi.beerStore().insertBeers(data)
+            } catch (e: Exception) {
+                _state.emit(
+                    PaginationState(
+                        DI.databaseApi.beerStore().getBeers(),
+                        allLoadedEnd = true
+                    )
                 )
-
-            _state.emit(paginationState)
-            busy.set(false)
+            } finally {
+                busy.set(false)
+            }
         }
     }
 
@@ -90,20 +108,23 @@ class MainRepositoryImpl @Inject constructor(
     override suspend fun loadRandomBeer() = punkApi.getRandomBeer()
 
     private val comparatorByAbv = Comparator { b1: BeerDataModel, b2: BeerDataModel ->
-        b2.abv.compareTo(b1.abv)
+        b1.abv.compareTo(b2.abv)
     }
 
     private val comparatorByIbu = Comparator { b1: BeerDataModel, b2: BeerDataModel ->
-        b2.ibu.compareTo(b1.ibu)
+        b1.ibu.compareTo(b2.ibu)
     }
 
     private val comparatorByEbc = Comparator { b1: BeerDataModel, b2: BeerDataModel ->
-        b2.ebc.compareTo(b1.ebc)
+        b1.ebc.compareTo(b2.ebc)
+    }
+
+    override fun setBeerFavorite(id: Long, favorite: Boolean) {
+        DI.databaseApi.beerStore().updateFavorite(id, favorite)
     }
 
     override fun reset() {
         scope?.cancel()
-
+        scope = null
     }
-
 }
