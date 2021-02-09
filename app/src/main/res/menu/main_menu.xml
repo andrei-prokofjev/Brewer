@@ -1,17 +1,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/action_sort_by_abv"
-        android:title="@string/sort_by_abv" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_sort_by_ids"
+            android:checked="true"
+            android:title="@string/sort_by_ids" />
 
-    <item
-        android:id="@+id/action_sort_by_ebc"
-        android:title="@string/sort_by_ebc" />
+        <item
+            android:id="@+id/action_sort_by_abv"
+            android:title="@string/sort_by_abv" />
 
-    <item
-        android:id="@+id/action_sort_by_ibu"
-        android:title="@string/sort_by_ibu" />
+        <item
+            android:id="@+id/action_sort_by_ebc"
+            android:title="@string/sort_by_ebc" />
+
+        <item
+            android:id="@+id/action_sort_by_ibu"
+            android:title="@string/sort_by_ibu" />
+    </group>
+
 
     <item
         android:id="@+id/action_favorites"

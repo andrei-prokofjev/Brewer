@@ -48,10 +48,10 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
     }
 
     private val adapter by lazy {
-        BeersListAdapter(true, glide, {
+        BeersListAdapter(glide, {
             viewModel.onBeerClicked(it.model)
-        }, { id, isFavorites ->
-            viewModel.setBeerFavorite(id, isFavorites)
+        }, { id, isFavorite ->
+            viewModel.setBeerFavorite(id, isFavorite)
         })
     }
 
@@ -75,24 +75,32 @@ class MainFragment : BaseFragment(R.layout.fragment_main), BackButtonListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+
         return when (item.itemId) {
             R.id.action_favorites -> {
+                item.isChecked = true
                 viewModel.onFavoritesClicked()
                 true
             }
-
             R.id.action_sort_by_abv -> {
+                item.isChecked = true
                 viewModel.sortBy(SortPreferences.SortBy.ABV)
                 return true
             }
-
             R.id.action_sort_by_ebc -> {
+                item.isChecked = true
                 viewModel.sortBy(SortPreferences.SortBy.EBC)
                 return true
             }
-
             R.id.action_sort_by_ibu -> {
+                item.isChecked = true
                 viewModel.sortBy(SortPreferences.SortBy.IBU)
+                return true
+            }
+            R.id.action_sort_by_ids -> {
+                item.isChecked = true
+                viewModel.sortBy(SortPreferences.SortBy.ID)
                 return true
             }
             else -> super.onOptionsItemSelected(item)

@@ -11,10 +11,12 @@
     android:foreground="@drawable/beer_card_selector_dark"
     android:paddingBottom="8dp">
 
-    <CheckBox
-        android:id="@+id/favoriteCheckBox"
+    <ImageView
+        android:id="@+id/favoriteImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:src="@drawable/ic_small_star_selected"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +27,7 @@
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:paddingTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/favoriteCheckBox"
+        app:layout_constraintEnd_toStartOf="@id/favoriteImageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 

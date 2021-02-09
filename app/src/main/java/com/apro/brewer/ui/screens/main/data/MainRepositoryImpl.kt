@@ -107,7 +107,7 @@ class MainRepositoryImpl @Inject constructor(
                 _state.emit(
                     PaginationState(
                         DI.databaseApi.beerStore().getBeers(),
-                        allLoadedEnd = true
+                        allLoadedEnd = _state.value.allLoadedEnd
                     )
                 )
             } finally {
@@ -133,7 +133,15 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     override fun setBeerFavorite(id: Long, favorite: Boolean) {
-        DI.databaseApi.beerStore().updateFavorite(id, favorite)
+        scope?.launch {
+            DI.databaseApi.beerStore().updateFavorite(id, favorite)
+            _state.emit(
+                PaginationState(
+                    DI.databaseApi.beerStore().getBeers(),
+                    _state.value.allLoadedEnd
+                )
+            )
+        }
     }
 
     override fun reset() {

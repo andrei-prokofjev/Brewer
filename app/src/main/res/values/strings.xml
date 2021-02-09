@@ -13,4 +13,5 @@
     <string name="sort_by_abv">Sort by ABV</string>
     <string name="sort_by_ibu">Sort by IBU</string>
     <string name="sort_by_ebc">Sort by EBC</string>
+    <string name="sort_by_ids">Sort by IDs</string>
 </resources>

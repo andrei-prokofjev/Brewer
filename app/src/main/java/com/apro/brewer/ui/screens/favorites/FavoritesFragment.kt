@@ -19,7 +19,7 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
     private val viewModel by viewModels<FavoritesScreenViewModel> { component.viewModelFactory() }
 
     private val adapter by lazy {
-        BeersListAdapter(false, glide, {
+        BeersListAdapter(glide, {
             viewModel.onBeerClicked(it.model)
         })
     }
