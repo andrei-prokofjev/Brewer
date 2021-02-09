@@ -1,7 +1,7 @@
 # Brewer
 
-TASK FOR ANDROID DEVELOPER
-Goal:
+#TASK FOR ANDROID DEVELOPER
+## Goal:
 1. Create an app on top of PUNK API: https://punkapi.com/documentation/v2
 Tasks:
 1. Build an app
