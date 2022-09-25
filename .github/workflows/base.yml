@@ -41,4 +41,10 @@ jobs:
       - name: Build APK
         run: ./gradlew app:assemble
 
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: brewer
+          path: app/build/outputs/apk/debug/*
+
 
